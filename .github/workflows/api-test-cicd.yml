@@ -24,7 +24,9 @@ jobs:
       # setup gradlew
       - name: Setup gradlew
         run: chmod +x gradlew
-
+        
+      - name: Show current branch name
+        run: echo "Current branch is ${{ env.branch_name }}"
       # execute test for running cucumber test
       - name: Execute test
         run: ./gradlew apiTest
