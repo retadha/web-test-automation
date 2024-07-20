@@ -5,6 +5,6 @@ Feature: API Test
     And test succeed
 
   @api
-  Scenario: Check Second Test
+  Scenario: Check Test Kedua
     Given check second time
     And second test succeed
