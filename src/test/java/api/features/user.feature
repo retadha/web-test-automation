@@ -1,5 +1,6 @@
+@api
 Feature: User
-  @api
+
   Scenario: Get User
     Given user id is 7051174
     When hit api get user
