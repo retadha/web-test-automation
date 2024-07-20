@@ -5,6 +5,8 @@ on:
     branches: [ "api-test" ]
   workflow_dispatch:
 
+
+
 jobs:
   build:
 
@@ -47,3 +49,4 @@ jobs:
         with:
           PERSONAL_TOKEN: ${{secrets.API_TEST_TOKEN}}
           PUBLISH_DIR: reports
+
