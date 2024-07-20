@@ -6,5 +6,5 @@ Feature: API Test
 
   @api
   Scenario: Check Second Test
-    Given check first time
-    And test succeed
+    Given check second time
+    And second test succeed

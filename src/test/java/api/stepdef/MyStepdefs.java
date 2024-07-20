@@ -13,4 +13,12 @@ public class MyStepdefs {
     @And("test succeed")
     public void testSucceed() {
     }
+
+    @Given("check second time")
+    public void checkSecondTime() {
+    }
+
+    @And("second test succeed")
+    public void secondTestSucceed() {
+    }
 }
