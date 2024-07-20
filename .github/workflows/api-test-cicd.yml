@@ -30,11 +30,13 @@ jobs:
       - name: Execute test
         run: ./gradlew apiTest
 
+
       - name: Create pull request
         if: success()
         run: gh pr create --base main --head api-test --title "Pull request api-test to main" --body "Pull request api-test to main"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       #Archive test result
       - name : Archive test result
