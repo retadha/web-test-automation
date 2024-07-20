@@ -8,3 +8,8 @@ Feature: API Test
   Scenario: Check Test Kedua Second
     Given check second time
     And second test succeed
+
+  @api
+  Scenario: Check Test Ketiga
+    Given check second time
+    And second test succeed
