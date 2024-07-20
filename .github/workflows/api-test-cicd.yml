@@ -3,8 +3,8 @@ name: Web Automation Workflow
 on:
   push:
     branches: [ "api-test" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:  
 
 jobs:
