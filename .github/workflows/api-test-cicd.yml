@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 
-
 jobs:
   build:
 
@@ -27,11 +26,15 @@ jobs:
       - name: Setup gradlew
         run: chmod +x gradlew
         
-      - name: Show current branch name
-        run: echo "Current branch is ${{ env.branch_name }}"
       # execute test for running cucumber test
       - name: Execute test
         run: ./gradlew apiTest
+
+      - name: Create pull request
+        if: success()
+        run: gh pr create --base main --head api-test --title "Pull request api-test to main" --body "Pull request api-test to main"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       #Archive test result
       - name : Archive test result
@@ -47,6 +50,6 @@ jobs:
         if: always()
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
         with:
-          PERSONAL_TOKEN: ${{secrets.API_TEST_TOKEN}}
+          PERSONAL_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PUBLISH_DIR: reports
 
