@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 public class MyStepdefs {
     @Given("check first time")
     public void checkFirstTime() {
-
+    Assertions.assertEquals(1,1);
     }
 
     @And("test succeed")
