@@ -47,7 +47,7 @@ jobs:
       #Archive test result
       - name : Archive test result
         uses: actions/upload-artifact@v4.3.4
-        if: always()
+        if: success()
         with:
           # Artifact name
           name: Cucumber Report
@@ -55,7 +55,7 @@ jobs:
           path: reports
 
       - name: Deploy report to github pages
-        if: always()
+        if: success()
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
         with:
           PERSONAL_TOKEN: ${{secrets.GITHUB_TOKEN}}
