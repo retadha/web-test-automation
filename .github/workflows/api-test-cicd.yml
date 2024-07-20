@@ -36,6 +36,9 @@ jobs:
       - name: Create Pull Request
         if: success()
         uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          branch: api-test
 
       #Archive test result
       - name : Archive test result
