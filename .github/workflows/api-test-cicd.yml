@@ -33,13 +33,6 @@ jobs:
       - name: Execute test
         run: ./gradlew apiTest
 
-      - name: Create Pull Request
-        if: success()
-        uses: peter-evans/create-pull-request@v6
-        with:
-          base: main
-          branch: api-test
-
       #Archive test result
       - name : Archive test result
         uses: actions/upload-artifact@v4.3.4
@@ -54,6 +47,6 @@ jobs:
         if: always()
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
         with:
-          PERSONAL_TOKEN: ${{secrets.API_TEST_TOKEN}}
+          PERSONAL_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PUBLISH_DIR: reports
 
