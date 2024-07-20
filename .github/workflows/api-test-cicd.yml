@@ -39,7 +39,7 @@ jobs:
 
       - name: Merge pull request
         if: success()
-        run: gh pr merge --auto --merge
+        run: gh pr merge --merge
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
