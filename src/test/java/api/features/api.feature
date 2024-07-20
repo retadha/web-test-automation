@@ -4,6 +4,7 @@ Feature: API Test
     Given check first time
     And test succeed
 
+  @api
   Scenario: Check Second Test
     Given check first time
     And test succeed
