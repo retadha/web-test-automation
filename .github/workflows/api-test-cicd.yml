@@ -30,6 +30,12 @@ jobs:
       - name: Execute test
         run: ./gradlew apiTest
 
+      - name: Create pull request
+        if: success()
+        run: gh pr create --base main --head api-test
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       #Archive test result
       - name : Archive test result
         uses: actions/upload-artifact@v4.3.4
