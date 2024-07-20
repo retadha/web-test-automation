@@ -3,47 +3,50 @@ name: Web Automation Workflow
 on:
   push:
     branches: [ "api-test" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:  
+  workflow_dispatch:
+
+
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    # download repo 
+    # download repo
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    # setup java
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
+      # setup java
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      # setup gradlew
+      - name: Setup gradlew
+        run: chmod +x gradlew
         
-    # setup gradlew
-    - name: Setup gradlew
-      run: chmod +x gradlew
+      - name: Show current branch name
+        run: echo "Current branch is ${{ env.branch_name }}"
+      # execute test for running cucumber test
+      - name: Execute test
+        run: ./gradlew apiTest
 
-    # execute test for running cucumber test
-    - name: Execute test
-      run: ./gradlew apiTest
-  
-    #Archive test result
-    - name : Archive test result
-      uses: actions/upload-artifact@v4.3.4
-      if: always()
-      with:
-        # Artifact name
-        name: Cucumber Report
-        # A file, directory or wildcard pattern that describes what to upload
-        path: reports
-            
-    - name: Deploy report to github pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
-      with:
-        PERSONAL_TOKEN: ${{secrets.API_TEST_TOKEN}}
-        PUBLISH_DIR: reports
+      #Archive test result
+      - name : Archive test result
+        uses: actions/upload-artifact@v4.3.4
+        if: always()
+        with:
+          # Artifact name
+          name: Cucumber Report
+          # A file, directory or wildcard pattern that describes what to upload
+          path: reports
+
+      - name: Deploy report to github pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
+        with:
+          PERSONAL_TOKEN: ${{secrets.API_TEST_TOKEN}}
+          PUBLISH_DIR: reports
+

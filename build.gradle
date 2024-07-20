@@ -18,14 +18,36 @@ dependencies {
     implementation 'io.cucumber:cucumber-java:7.18.0'
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
     testImplementation 'io.cucumber:cucumber-junit:7.18.0'
+
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
+    testImplementation group: 'org.json', name: 'json', version: '20240303'
+    testImplementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.5.0'
 }
 
 test {
     useJUnitPlatform()
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 }
 
 configurations {
     cucumberRuntime {
         extendsFrom testImplementation
+    }
+}
+
+tasks.register('apiTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--glue', 'api.stepdef',
+                    '--tags', "@api",
+                    'src/test/java/api/features']
+        }
     }
 }
