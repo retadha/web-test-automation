@@ -34,7 +34,7 @@ jobs:
         run: ./gradlew apiTest
 
       - name: Create Pull Request
-        if: successful()
+        if: success()
         uses: peter-evans/create-pull-request@v6
 
       #Archive test result
