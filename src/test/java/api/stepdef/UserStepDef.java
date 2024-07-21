@@ -30,4 +30,29 @@ public class UserStepDef {
     public void hitApiGetUser() {
         user.getRequest(user.getId());
     }
+
+    @Given("user name is {string}")
+    public void userNameIs(String name) {
+        user.setName(name);
+    }
+
+    @And("user gender is {string}")
+    public void userGenderIs(String gender) {
+        user.setGender(gender);
+    }
+
+    @And("user email is {string}")
+    public void userEmailIs(String email) {
+        user.setEmail(email);
+    }
+
+    @And("user status is {string}")
+    public void userStatusIs(String status) {
+        user.setStatus(status);
+    }
+
+    @When("hit api create user")
+    public void hitApiCreateUser() {
+        user.createUser();
+    }
 }

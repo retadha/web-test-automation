@@ -1,5 +1,7 @@
 package api.objects;
 
+import org.json.JSONObject;
+
 public class User extends ApiRequest {
 
     private int id;
@@ -62,9 +64,26 @@ public class User extends ApiRequest {
         return status;
     }
 
+    public String getJson() {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", this.email);
+        jsonObject.put("name", this.name);
+        jsonObject.put("gender", this.gender);
+        jsonObject.put("status", this.status);
+
+        return jsonObject.toString();
+    }
+
+
+
     public void getUser(int id) {
         this.getRequest(id);
 
+    }
+
+    public void createUser() {
+        this.postRequest(this.getJson());
     }
 
 
