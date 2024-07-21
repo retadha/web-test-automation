@@ -18,6 +18,12 @@ dependencies {
     implementation 'io.cucumber:cucumber-java:7.18.0'
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
     testImplementation 'io.cucumber:cucumber-junit:7.18.0'
+
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.22.0'
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.1'
+
 }
 
 test {
@@ -27,5 +33,21 @@ test {
 configurations {
     cucumberRuntime {
         extendsFrom testImplementation
+    }
+}
+
+tasks.register('webTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/ui-test-report.html',
+                    '--glue', 'stepDef',
+                    '--tags', "@web",
+                    'src/test/java/features']
+        }
     }
 }
