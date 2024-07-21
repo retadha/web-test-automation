@@ -1,1 +1,62 @@
-# A comment
+name: Web Automation Workflow
+
+on:
+  push:
+    branches: [ "ui-test" ]
+  workflow_dispatch:
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    # download repo
+    steps:
+      - uses: actions/checkout@v4
+
+      # setup java
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      # setup gradlew
+      - name: Setup gradlew
+        run: chmod +x gradlew
+
+      # execute test for running cucumber test
+      - name: Execute test
+        run: ./gradlew webTest
+
+
+      - name: Create pull request
+        if: success()
+        run: gh pr create --base main --head ui-test --title "Pull request ui-test to main" --body "Pull request ui-test to main"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#      - name: Merge pull request
+#        if: success()
+#        run: gh pr merge --merge
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      
+      #Archive test result
+      - name : Archive test result
+        uses: actions/upload-artifact@v4.3.4
+        if: success()
+        with:
+          # Artifact name
+          name: Cucumber Report
+          # A file, directory or wildcard pattern that describes what to upload
+          path: reports
+
+      - name: Deploy report to github pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
+        with:
+          PERSONAL_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PUBLISH_DIR: reports
