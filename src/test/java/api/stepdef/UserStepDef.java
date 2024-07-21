@@ -11,12 +11,12 @@ public class UserStepDef {
     private User user = new User();
 
 
-    @Then("response status code is {int}")
+    @Then("response status code is {int} for user api request")
     public void responseStatusCodeIs(int code) {
         user.validateResponseStatusCode(code);
     }
 
-    @And("response body match json schema {string}")
+    @And("response body match {string} for user api request")
     public void responseBodyMatchJsonSchema(String filepath) {
         user.validateJsonSchema(filepath);
     }

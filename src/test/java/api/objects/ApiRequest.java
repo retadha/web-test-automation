@@ -32,6 +32,16 @@ public class ApiRequest {
 
     }
 
+    public void getRequest() {
+        this.res = given().log().all()
+                .header("Authorization", "Bearer " + TOKEN)
+                .get(BASE_URL + endpoint)
+                .then().log().all()
+                .extract().response();
+
+//        this.loadResponse();
+    }
+
     public void getRequest(int id) {
         this.res = given().log().all()
                     .header("Authorization", "Bearer " + TOKEN)
