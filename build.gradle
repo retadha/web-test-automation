@@ -28,6 +28,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 }
 
 configurations {
@@ -47,7 +48,7 @@ tasks.register('webTest') {
                     '--plugin', 'html:reports/ui-test-report.html',
                     '--glue', 'ui.stepdef',
                     '--tags', "@web",
-                    'src/test/java/features']
+                    'src/test/java/ui/features']
         }
     }
 }
