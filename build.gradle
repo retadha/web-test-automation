@@ -45,7 +45,7 @@ tasks.register('webTest') {
             args = [
                     '--plugin', 'pretty',
                     '--plugin', 'html:reports/ui-test-report.html',
-                    '--glue', 'stepDef',
+                    '--glue', 'ui.stepdef',
                     '--tags', "@web",
                     'src/test/java/features']
         }
