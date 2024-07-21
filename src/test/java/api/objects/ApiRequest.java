@@ -33,13 +33,13 @@ public class ApiRequest {
     }
 
     public void getRequest(int id) {
-        this.res = given()
-                    .when()
+        this.res = given().log().all()
+                    .header("Authorization", "Bearer " + TOKEN)
                     .get(BASE_URL + endpoint + "/" + String.valueOf(id))
                     .then().log().all()
                     .extract().response();
 
-        this.loadResponse();
+//        this.loadResponse();
     }
 
     public void postRequest(String body) {
@@ -53,15 +53,39 @@ public class ApiRequest {
                 .then().log().all()
                 .extract().response();
 
-        this.loadResponse();
+//        this.loadResponse();
 
     }
 
-    public void loadResponse() {
-        this.statusCode = this.res.getStatusCode();
-        this.body = this.res.getBody();
+    public void patchRequest(int id, String body) {
+        this.res = given().log().all()
+                .header("Content-Type", "application/json")
+                .header("Accept","application/json")
+                .header("Authorization", "Bearer " + TOKEN)
+                .body(body)
+                .patch(BASE_URL + endpoint + "/" + String.valueOf(id))
+                .then().log().all()
+                .extract().response();
+
+//        this.loadResponse();
 
     }
+
+    public void deleteRequest(int id) {
+        this.res = given()
+                    .header("Authorization", "Bearer " + TOKEN)
+                    .when()
+                    .delete(BASE_URL + endpoint + "/" + String.valueOf(id))
+                    .then().log().all()
+                    .extract().response();
+
+    }
+
+//    public void loadResponse() {
+//        this.statusCode = this.res.getStatusCode();
+//        this.body = this.res.getBody();
+//
+//    }
 
     public void validateResponseStatusCode(int code) {
         Assertions.assertEquals(code, this.res.getStatusCode());

@@ -55,4 +55,22 @@ public class UserStepDef {
     public void hitApiCreateUser() {
         user.createUser();
     }
+
+    @When("hit api update user")
+    public void hitApiUpdateUser() {
+        user.updateUser();
+
+    }
+
+    @When("hit api delete user")
+    public void hitApiDeleteUser() {
+        user.deleteUser();
+    }
+
+    @And("user name in response is {string}")
+    public void userNameInResponseIs(String name) {
+        user.validateName(name);
+    }
+
+
 }
