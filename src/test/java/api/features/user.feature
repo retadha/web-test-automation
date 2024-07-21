@@ -42,7 +42,7 @@ Feature: User
     And response body match "src/test/java/api/schemes/UserSchema.json" for user api request
 
   Scenario: Delete User
-    Given user id is 7051162
+    Given user id is 7051161
     When hit api delete user
     Then response status code is 204 for user api request
 
