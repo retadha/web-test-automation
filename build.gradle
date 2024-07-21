@@ -50,6 +50,7 @@ tasks.register('apiTest') {
             args = [
                     '--plugin', 'pretty',
                     '--plugin', 'html:reports/api-test-report.html',
+                    '--plugin', 'json:reports/api-test-report.json',
                     '--glue', 'api.stepdef',
                     '--tags', "@api",
                     'src/test/java/api/features']
@@ -66,6 +67,7 @@ tasks.register('webTest') {
             args = [
                     '--plugin', 'pretty',
                     '--plugin', 'html:reports/ui-test-report.html',
+                    '--plugin', 'json:reports/ui-test-report.json',
                     '--glue', 'ui.stepdef',
                     '--tags', "@web",
                     'src/test/java/ui/features']
