@@ -37,13 +37,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Merge pull request
-#        if: success()
-#        run: gh pr merge --merge
-#        env:
-#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      
       #Archive test result
       - name : Archive test result
         uses: actions/upload-artifact@v4.3.4
