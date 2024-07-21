@@ -44,7 +44,7 @@ tasks.register('apiTest') {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
                     '--plugin', 'pretty',
-                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--plugin', 'html:reports/api-report.html',
                     '--glue', 'api.stepdef',
                     '--tags', "@api",
                     'src/test/java/api/features']
