@@ -23,6 +23,11 @@ dependencies {
     testImplementation group: 'org.json', name: 'json', version: '20240303'
     testImplementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
     testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.5.0'
+
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.22.0'
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.1'
 }
 
 test {
@@ -36,7 +41,26 @@ configurations {
     }
 }
 
-tasks.register('apiTest') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tasks.register('webTest') {
     dependsOn assemble, testClasses
     doLast {
         javaexec {
@@ -44,10 +68,10 @@ tasks.register('apiTest') {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
                     '--plugin', 'pretty',
-                    '--plugin', 'html:reports/api-test-report.html',
-                    '--glue', 'api.stepdef',
-                    '--tags', "@api",
-                    'src/test/java/api/features']
+                    '--plugin', 'html:reports/ui-test-report.html',
+                    '--glue', 'ui.stepdef',
+                    '--tags', "@web",
+                    'src/test/java/ui/features']
         }
     }
 }
